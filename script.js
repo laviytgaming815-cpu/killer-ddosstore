@@ -31,7 +31,7 @@ let selectedGame = "BGMI";
 function renderProducts(){
   const list = document.getElementById("product-list");
   list.innerHTML = '';
-  products.filter(p=>p.game===selectedGame).forEach((p,i)=>{
+  products.filter(p=>p.game===selectedGame || selectedGame==="All").forEach((p,i)=>{
     let finalPrice = p.price - (p.price*p.discount/100);
     let card = document.createElement('div');
     card.className = 'card';
@@ -60,12 +60,18 @@ const modalProductName = document.getElementById('modalProductName');
 const modalPrice = document.getElementById('modalPrice');
 const modalQty = document.getElementById('modalQty');
 const payButton = document.getElementById('payButton');
+const codeSection = document.getElementById('codeSection');
+const deliveredCode = document.getElementById('deliveredCode');
 const spanClose = document.querySelector('.close');
 
 function openModal(product){
   let finalPrice = product.price - (product.price*product.discount/100);
   modalProductName.innerText = product.name;
   modalPrice.innerText = finalPrice;
+  modalQty.value = 1;
+  codeSection.style.display = 'none';
+  deliveredCode.innerText = '';
+  modal.dataset.productIndex = products.indexOf(product);
   modal.style.display = 'block';
 }
 
@@ -74,6 +80,11 @@ window.onclick = e=>{if(e.target==modal) modal.style.display='none';}
 
 // ===== Simulated QR / UPI Payment =====
 payButton.onclick = ()=>{
-  alert("Simulated Payment via QR / UPI successful!\nYour code will be delivered soon.");
-  modal.style.display='none';
+  let index = modal.dataset.productIndex;
+  let product = products[index];
+  let qty = parseInt(modalQty.value);
+  // Deliver first available codes
+  let code = product.codes.slice(0,qty).join(', ');
+  codeSection.style.display = 'block';
+  deliveredCode.innerText = code || "No codes available";
 };
