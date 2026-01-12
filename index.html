@@ -19,12 +19,36 @@
 
 <section class="hero">
   <h2>Top-Up Store</h2>
-  <p>BGMI | Free Fire | COD | All Games</p>
+  <p>BGMI | Free Fire | COD Mobile | All Games</p>
 </section>
 
-<!-- Game Tabs -->
+<!-- Tabs -->
 <div class="tabs">
   <button class="tab-button active" data-game="BGMI">BGMI</button>
   <button class="tab-button" data-game="Free Fire">Free Fire</button>
   <button class="tab-button" data-game="COD Mobile">COD Mobile</button>
   <button class="tab-button" data-game="All">All Games</button>
+</div>
+
+<!-- Products list -->
+<section class="products" id="product-list"></section>
+
+<!-- Modal -->
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h3 id="modalProductName"></h3>
+    <p>Price: ₹<span id="modalPrice"></span></p>
+    <label>Quantity:</label>
+    <input type="number" id="modalQty" min="1" value="1">
+    <button id="payButton">Pay via QR / UPI</button>
+    <div id="codeSection" style="margin-top:15px; display:none;">
+      <h4>Your Code:</h4>
+      <p id="deliveredCode" style="color:#00f5ff;font-weight:bold;"></p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
