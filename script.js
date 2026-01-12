@@ -1,41 +1,28 @@
-// ===== Products System =====
+// ===== Products with Discount =====
 let products = [
-  // BGMI UC
-  {name:"BGMI UC 60", game:"BGMI", price:60},
-  {name:"BGMI UC 125", game:"BGMI", price:125},
-  {name:"BGMI UC 300", game:"BGMI", price:300},
-  {name:"BGMI UC 600", game:"BGMI", price:600},
-  {name:"BGMI UC 1200", game:"BGMI", price:1200},
-
-  // Free Fire Diamonds
-  {name:"FF Diamonds 50", game:"Free Fire", price:50},
-  {name:"FF Diamonds 100", game:"Free Fire", price:100},
-  {name:"FF Diamonds 300", game:"Free Fire", price:300},
-  {name:"FF Diamonds 500", game:"Free Fire", price:500},
-  {name:"FF Diamonds 1000", game:"Free Fire", price:1000},
-
-  // COD Points (CP)
-  {name:"COD CP 60", game:"COD Mobile", price:60},
-  {name:"COD CP 125", game:"COD Mobile", price:125},
-  {name:"COD CP 300", game:"COD Mobile", price:300},
-  {name:"COD CP 600", game:"COD Mobile", price:600},
-  {name:"COD CP 1200", game:"COD Mobile", price:1200},
-
-  // Free / All Games Items
-  {name:"All Games Mystery Box", game:"All", price:200},
-  {name:"All Games Exclusive Skin", game:"All", price:500}
+  {name:"BGMI UC 60", game:"BGMI", price:60, discount:10},
+  {name:"BGMI UC 125", game:"BGMI", price:125, discount:0},
+  {name:"FF Diamonds 50", game:"Free Fire", price:50, discount:5},
+  {name:"FF Diamonds 100", game:"Free Fire", price:100, discount:0},
+  {name:"COD CP 60", game:"COD Mobile", price:60, discount:0},
+  {name:"COD CP 125", game:"COD Mobile", price:125, discount:10},
+  {name:"All Games Mystery Box", game:"All", price:200, discount:10},
+  {name:"All Games Exclusive Skin", game:"All", price:500, discount:20}
 ];
 
+// ===== Render Products =====
 function renderProducts() {
   const list = document.getElementById("product-list");
   if(!list) return;
   list.innerHTML = '';
   products.forEach((p,i)=>{
+    let finalPrice = p.price - (p.price*p.discount/100);
     let card = document.createElement('div');
     card.className = 'card';
     card.innerHTML = `<h3>${p.name}</h3>
       <p>Game: ${p.game}</p>
-      <p>Price: ₹${p.price}</p>
+      <p>Price: <span style="text-decoration:line-through">₹${p.price}</span> → <span style="color:#00f5ff;">₹${finalPrice}</span></p>
+      ${p.discount>0 ? `<span class="discount-badge">-${p.discount}% OFF</span>` : ''}
       <a class="btn" href="https://wa.me/7986460527?text=I%20want%20${p.name}" target="_blank">Buy</a>`;
     list.appendChild(card);
   });
@@ -48,8 +35,9 @@ if(orderForm){
   const productSelect = document.getElementById("product");
   products.forEach(p=>{
     let opt = document.createElement('option');
+    let finalPrice = p.price - (p.price*p.discount/100);
     opt.value = p.name;
-    opt.innerText = `${p.name} - ₹${p.price}`;
+    opt.innerText = `${p.name} - ₹${finalPrice}`;
     productSelect.appendChild(opt);
   });
 
@@ -89,7 +77,7 @@ function renderAdminProducts(){
   adminList.innerHTML = '';
   products.forEach((p,i)=>{
     let li = document.createElement('li');
-    li.innerHTML = `${p.name} - ₹${p.price} - ${p.game} 
+    li.innerHTML = `${p.name} - ₹${p.price} - ${p.game} - ${p.discount}% 
       <button onclick="deleteProduct(${i})">Delete</button>`;
     adminList.appendChild(li);
   });
@@ -100,11 +88,11 @@ if(addForm){
     e.preventDefault();
     const name=document.getElementById("productName").value;
     const price=document.getElementById("productPrice").value;
+    const discount=document.getElementById("productDiscount").value;
     const game=document.getElementById("productGame").value;
-    products.push({name:name,price:Number(price),game:game});
+    products.push({name:name,price:Number(price),discount:Number(discount),game:game});
     renderProducts();
     renderAdminProducts();
   });
   renderAdminProducts();
-
 }
