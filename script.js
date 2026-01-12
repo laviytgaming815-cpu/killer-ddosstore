@@ -1,8 +1,29 @@
 // ===== Products System =====
 let products = [
-  {name:"BGMI UC", game:"BGMI", price:100},
-  {name:"Free Fire Diamonds", game:"Free Fire", price:50},
-  {name:"All Games Item", game:"All", price:200}
+  // BGMI UC
+  {name:"BGMI UC 60", game:"BGMI", price:60},
+  {name:"BGMI UC 125", game:"BGMI", price:125},
+  {name:"BGMI UC 300", game:"BGMI", price:300},
+  {name:"BGMI UC 600", game:"BGMI", price:600},
+  {name:"BGMI UC 1200", game:"BGMI", price:1200},
+
+  // Free Fire Diamonds
+  {name:"FF Diamonds 50", game:"Free Fire", price:50},
+  {name:"FF Diamonds 100", game:"Free Fire", price:100},
+  {name:"FF Diamonds 300", game:"Free Fire", price:300},
+  {name:"FF Diamonds 500", game:"Free Fire", price:500},
+  {name:"FF Diamonds 1000", game:"Free Fire", price:1000},
+
+  // COD Points (CP)
+  {name:"COD CP 60", game:"COD Mobile", price:60},
+  {name:"COD CP 125", game:"COD Mobile", price:125},
+  {name:"COD CP 300", game:"COD Mobile", price:300},
+  {name:"COD CP 600", game:"COD Mobile", price:600},
+  {name:"COD CP 1200", game:"COD Mobile", price:1200},
+
+  // Free / All Games Items
+  {name:"All Games Mystery Box", game:"All", price:200},
+  {name:"All Games Exclusive Skin", game:"All", price:500}
 ];
 
 function renderProducts() {
@@ -85,4 +106,5 @@ if(addForm){
     renderAdminProducts();
   });
   renderAdminProducts();
+
 }
